@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!--
+    devhub app icon: the BrandMark (coral circle + green rounded square,
+    from nieky.info) on the grape-black ground. Laid out on Apple's
+    macOS grid (824px body inset 100px); iOS fills the corners with the
+    same color (the ios-color option), so it reads full-bleed there.
+    Regenerate every platform's icons with `pnpm icons`.
+  -->
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1D1727"/>
+      <stop offset="1" stop-color="#110C18"/>
+    </linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#ground)"/>
+  <rect x="100.5" y="100.5" width="823" height="823" rx="184.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.06"/>
+  <circle cx="471" cy="473" r="221" fill="#FF333A"/>
+  <!-- a ground-colored gap keeps the square crisp where it overlaps -->
+  <rect x="493" y="491" width="281" height="281" rx="60" fill="#A9DE54" stroke="#16101E" stroke-width="16" paint-order="stroke"/>
+</svg>

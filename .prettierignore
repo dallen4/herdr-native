@@ -1,0 +1,10 @@
+dist
+node_modules
+src-tauri/target
+src-tauri/gen
+pnpm-lock.yaml
+shared/src/herdr/generated
+shared/src/herdr/schema.json
+CLAUDE.md
+README.md
+.vscode

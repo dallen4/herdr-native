@@ -1,0 +1,367 @@
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GeneralSans';
+  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Sized to the visual viewport (lib/viewport.ts), so the keyboard
+   shrinks the app instead of scrolling it away. */
+html,
+body {
+  overflow: hidden;
+}
+body {
+  height: var(--app-height, 100%);
+}
+html[data-keyboard] body {
+  padding-bottom: 0;
+}
+
+body {
+  background: #110c18;
+  -webkit-font-smoothing: antialiased;
+  /* iPhone notch and home indicator */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* ---- scrollbars ---------------------------------------------------- */
+
+/* Thin, quiet scrollbars everywhere; none at all where content
+   scrolls by its own means (tab strips, the terminal). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3850 transparent;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.xterm .xterm-viewport {
+  scrollbar-width: none;
+}
+.xterm .xterm-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- chat ---------------------------------------------------------- */
+
+.devhub-markdown {
+  font-size: 15.5px;
+  font-weight: 450;
+  line-height: 1.7;
+}
+.devhub-markdown strong {
+  font-weight: 650;
+}
+.devhub-markdown p {
+  margin: 0 0 0.75em;
+}
+.devhub-markdown p:last-child {
+  margin-bottom: 0;
+}
+.devhub-markdown code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.86em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #1b1722;
+}
+.devhub-markdown pre code {
+  padding: 0;
+  background: none;
+}
+/* Agent prose takes the full column; nothing in it may widen the page.
+   Long tokens wrap, code and tables scroll inside themselves. */
+.devhub-markdown {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.devhub-markdown pre {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0.6em 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #1b1722;
+  border: 1px solid #241f2c;
+  font-size: 12.5px;
+  line-height: 1.55;
+  overflow-wrap: normal;
+}
+.devhub-markdown table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 0.6em 0;
+  font-size: 0.92em;
+}
+.devhub-markdown th,
+.devhub-markdown td {
+  padding: 6px 10px;
+  border: 1px solid #302b39;
+  text-align: left;
+  overflow-wrap: normal;
+}
+.devhub-markdown th {
+  background: #1b1722;
+  font-weight: 600;
+}
+.devhub-markdown img {
+  max-width: 100%;
+  height: auto;
+}
+.devhub-markdown ul,
+.devhub-markdown ol {
+  margin: 0 0 0.75em;
+  padding-left: 1.4em;
+}
+.devhub-markdown li + li {
+  margin-top: 0.25em;
+}
+.devhub-markdown h1,
+.devhub-markdown h2,
+.devhub-markdown h3,
+.devhub-markdown h4 {
+  margin: 1.1em 0 0.45em;
+  color: #f4f2f7;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.devhub-markdown h1 {
+  font-size: 1.3em;
+}
+.devhub-markdown h2 {
+  font-size: 1.18em;
+}
+.devhub-markdown h3,
+.devhub-markdown h4 {
+  font-size: 1.05em;
+}
+.devhub-markdown > :first-child,
+.devhub-markdown > div > :first-child {
+  margin-top: 0;
+}
+.devhub-markdown blockquote {
+  margin: 0.6em 0;
+  padding-left: 12px;
+  border-left: 2px solid #3f3850;
+  color: #b9b3c4;
+}
+.devhub-markdown hr {
+  border: 0;
+  border-top: 1px solid #302b39;
+  margin: 1em 0;
+}
+
+/* tool rows: a quiet hover, no hover on touch */
+.devhub-step:not(:disabled):hover {
+  background: #1f1b26 !important;
+}
+
+/* the working indicator: three soft dots */
+.devhub-working {
+  display: inline-flex;
+  gap: 4px;
+}
+.devhub-working i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4aabe8;
+  animation: devhub-pulse 1.2s ease-in-out infinite;
+}
+.devhub-working i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.devhub-working i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes devhub-pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 820px) {
+  .devhub-markdown {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+}
+
+/* ---- sidebar rows ---------------------------------------------------- */
+
+.devhub-row {
+  transition: background 120ms ease;
+}
+.devhub-row:hover {
+  background: #1f1b26;
+}
+.devhub-row[aria-current='true'],
+.devhub-row[aria-current='true']:hover {
+  background: #26222e;
+}
+.devhub-row .devhub-row-action {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.devhub-row:hover .devhub-row-action,
+.devhub-row:focus-within .devhub-row-action {
+  opacity: 1;
+}
+.devhub-ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- syntax highlighting (Prism tokens) ------------------------------ */
+
+.devhub-code {
+  color: #d7d2df;
+}
+.devhub-code .token.comment,
+.devhub-code .token.prolog,
+.devhub-code .token.doctype,
+.devhub-code .token.cdata {
+  color: #8e879b;
+  font-style: italic;
+}
+.devhub-code .token.keyword,
+.devhub-code .token.important,
+.devhub-code .token.atrule {
+  color: #c9a7ff;
+}
+.devhub-code .token.string,
+.devhub-code .token.char,
+.devhub-code .token.template-string,
+.devhub-code .token.regex,
+.devhub-code .token.url {
+  color: #e6c07b;
+}
+.devhub-code .token.function,
+.devhub-code .token.method {
+  color: #74c0fc;
+}
+.devhub-code .token.number,
+.devhub-code .token.boolean,
+.devhub-code .token.constant,
+.devhub-code .token.symbol {
+  color: #ffb86c;
+}
+.devhub-code .token.class-name,
+.devhub-code .token.builtin,
+.devhub-code .token.namespace {
+  color: #8bdde8;
+}
+.devhub-code .token.property,
+.devhub-code .token.attr-name,
+.devhub-code .token.key {
+  color: #ffd966;
+}
+.devhub-code .token.tag,
+.devhub-code .token.selector,
+.devhub-code .token.deleted {
+  color: #ff7a7f;
+}
+.devhub-code .token.operator,
+.devhub-code .token.punctuation,
+.devhub-code .token.entity {
+  color: #b9b3c4;
+}
+.devhub-code .token.inserted {
+  color: #c2ea86;
+}
+
+/* ---- toasts ----------------------------------------------------------- */
+
+/* Ant's default toast is a dark card on a dark ground. Lift it: a
+   brighter surface, a real edge and shadow, and room under the notch. */
+.ant-message {
+  top: calc(env(safe-area-inset-top) + 12px) !important;
+}
+.ant-message .ant-message-notice-wrapper .ant-message-notice-content {
+  max-width: min(560px, calc(100vw - 32px));
+  padding: 10px 16px;
+  border: 1px solid #4a4259;
+  border-radius: 12px;
+  background: #312b3d;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+  color: #f4f2f7;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: left;
+}
+.ant-message .ant-message-custom-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+.ant-message .ant-message-custom-content .anticon {
+  margin-top: 3px;
+  font-size: 16px;
+}
+.ant-message .ant-message-error .ant-message-notice-content,
+.ant-message-notice-content:has(.ant-message-error) {
+  border-color: rgba(255, 51, 58, 0.55);
+}
+.ant-message-notice-content:has(.ant-message-warning) {
+  border-color: rgba(255, 201, 51, 0.5);
+}
+.ant-message-notice-content:has(.ant-message-success) {
+  border-color: rgba(169, 222, 84, 0.5);
+}
+
+/* ---- touch ------------------------------------------------------------ */
+
+@media (pointer: coarse) {
+  /* iOS zooms into any field under 16px when it takes focus */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* row actions can't depend on hover */
+  .devhub-row .devhub-row-action {
+    opacity: 1;
+  }
+}

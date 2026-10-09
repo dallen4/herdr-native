@@ -1,0 +1,21 @@
+{
+  "name": "devhub",
+  "short_name": "devhub",
+  "display": "standalone",
+  "start_url": "./",
+  "scope": "./",
+  "background_color": "#110C18",
+  "theme_color": "#110C18",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}

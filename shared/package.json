@@ -1,0 +1,18 @@
+{
+  "name": "@devhub/shared",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./herdr": "./src/herdr/index.ts",
+    "./protocol": "./src/protocol.ts",
+    "./hub": "./src/hub.ts",
+    "./agui": "./src/agui.ts",
+    "./browser": "./src/browser.ts"
+  },
+  "dependencies": {
+    "@ag-ui/core": "^1.0.1"
+  }
+}
